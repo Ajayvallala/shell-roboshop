@@ -10,7 +10,7 @@ DOMAIN_NAME="vallalas.store"
 
 #for instance in ${INSTANCES_LIST[@]}
 
-for instance in $@
+for instance in $@    #collecting server details at runtime as arguments
 do
    INSTANCE_ID=$(aws ec2 run-instances \
     --image-id $AMIID \
@@ -22,6 +22,8 @@ do
     --query "Instances[0].InstanceId" \
     --output text)
     
+ #if instance in frontend collect public ip if not collect private ip
+
   if [ $instance != "frontend" ]
   then 
     IP=$(aws ec2 describe-instances \
@@ -36,6 +38,8 @@ do
    --output text)
    RECORD_NAME="$DOMAIN_NAME"
   fi
+
+#Create or update route53 records with ip address
 
   aws route53 change-resource-record-sets \
   --hosted-zone-id "$ZONEID" \
