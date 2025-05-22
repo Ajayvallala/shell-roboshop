@@ -3,7 +3,7 @@
 AMIID="ami-09c813fb71547fc4f"
 SG_ID="sg-007aa1e4ce81005d7"
 INSTANCE_TYPE="t2.micro"
-INSTANCES=("mongodb" "catalogue" "frontend")
+INSTANCES=("mongodb" "catalogue" "Frontend")
 SUBNET_ID="subnet-07d9ef0ea659b9697"
 
 for instance in ${INSTANCES[@]}
