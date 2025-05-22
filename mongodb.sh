@@ -12,6 +12,8 @@ LOG_FILE="$LOG_FOLDER$SCRIPT_NAME.log"
 echo "Script execution started at $(date)" | tee -a $LOG_FILE
 
 mkdir -p $LOG_FOLDER
+VALIDATE $? "Creating LOG Folder"
+
 
 if [ $USER -ne 0 ]
 then

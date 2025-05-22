@@ -1,15 +1,19 @@
 #!/bin/bash
 
-R="\e[31"
-G="\e[32"
-Y="\e[33"
-N="\e[0"
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
 
 LOG_FOLDER="/var/log/shell_script/"
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 LOG_FILE="$LOG_FOLDER$SCRIPT_NAME.log"
-mkdir -p $LOG_FOLDER
 USER=$(id -u)
+
+mkdir -p $LOG_FOLDER
+VALIDATE $? "Creating LOG Folder"
+
+echo "Script execution started at $(date)" | tee -a $LOG_FILE
 
 if [ $USER -ne 0 ]
 then
