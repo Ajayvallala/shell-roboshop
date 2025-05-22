@@ -6,8 +6,13 @@ Y="\e[33m"
 N="\e[0m"
 USER=$(id -u)
 DATE=$(date)
+LOG_FOLDER="/var/log/shell_script/"
+SCRIPT_NAME=$($0 | cut -d "." -f1)
+LOG_FILE=$LOG_FOLDER$SCRIPT_NAME.log
 
-echo "Script execution started at $DATE"
+echo -e "$Y Script execution started at $DATE $N"
+
+mkdir -p $LOG_FOLDER
 
 if [ $USER -ne 0 ]
 then
@@ -30,7 +35,7 @@ VALIDATE(){
 cp mongo.repo /etc/yum.repos.d/mongodb.repo
 VALIDATE $? "Copying repo"
 
-dnf install mongodb-org -y
+dnf install mongodb-org -y >>$LOG_FILE
 VALIDATE $? "Installation mongodb"
 
 systemctl enable mongod
