@@ -4,11 +4,13 @@ AMIID="ami-09c813fb71547fc4f"
 SG_ID="sg-007aa1e4ce81005d7"
 INSTANCE_TYPE="t2.micro"
 SUBNET_ID="subnet-07d9ef0ea659b9697"
-INSTANCES_LIST=("mongodb")
+#INSTANCES_LIST=("mongodb")
 ZONEID="Z0638351DE255MIV6AWU"
 DOMAIN_NAME="vallalas.store"
 
-for instance in ${INSTANCES_LIST[@]}
+#for instance in ${INSTANCES_LIST[@]}
+
+for instance in $@
 do
    INSTANCE_ID=$(aws ec2 run-instances \
     --image-id $AMIID \
@@ -26,11 +28,13 @@ do
     --instance-ids $INSTANCE_ID \
     --query 'Reservations[0].Instances[0].PrivateIpAddress' \
     --output text)
+    RECORD_NAME="$instance.$DOMAIN_NAME"
   else
    IP=$(aws ec2 describe-instances \
    --instance-ids $INSTANCE_ID \
    --query 'Reservations[0].Instances[0].PublicIpAddress' \
    --output text)
+   RECORD_NAME="$DOMAIN_NAME"
   fi
 
   aws route53 change-resource-record-sets \
@@ -40,7 +44,7 @@ do
     \"Changes\": [{
       \"Action\": \"UPSERT\",
       \"ResourceRecordSet\": {
-        \"Name\": \"${instance}.${DOMAIN_NAME}\",
+        \"Name\": \"${RECORD_NAME}\",
         \"Type\": \"A\",
         \"TTL\": 1,
         \"ResourceRecords\": [{
