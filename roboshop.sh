@@ -11,13 +11,13 @@ DOMAIN_NAME="vallalas.store"
 for instance in ${INSTANCES_LIST[@]}
 do
    INSTANCE_ID=$(aws ec2 run-instances \
-  --image-id $AMIID \           # Replace with your AMI ID
-  --instance-type $INSTANCE_TYPE \                   # Replace with desired instance type
-  --security-group-ids $SG_ID \  # Replace with your security group ID
-  --subnet-id $SUBNET_ID \                # Optional: specify subnet ID
-  --associate-public-ip-address \
-  --query 'Instances[0].InstanceId' \
-  --output text)
+   --image-id $AMIID \           # Replace with your AMI ID
+   --instance-type $INSTANCE_TYPE \                   # Replace with desired instance type
+   --security-group-ids $SG_ID \  # Replace with your security group ID
+   --subnet-id $SUBNET_ID \                # Optional: specify subnet ID
+   --associate-public-ip-address \
+   --query 'Instances[0].InstanceId' \
+   --output text)
   
   if [ $instance != "frontend" ]
   then 
@@ -31,6 +31,7 @@ do
    --query 'Reservations[0].Instances[0].PublicIpAddress' \
    --output text)
   fi
+
   aws route53 change-resource-record-sets \
   --hosted-zone-id $ZONEID \
   --change-batch '{
