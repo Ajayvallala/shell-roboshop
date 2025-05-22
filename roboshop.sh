@@ -34,18 +34,21 @@ do
   fi
 
   aws route53 change-resource-record-sets \
-  --hosted-zone-id $ZONEID \
-  --change-batch '{
-    "Changes": [{
-      "Action": "UPSERT",
-      "ResourceRecordSet": {
-        "Name": "${instance}.${DOMAIN_NAME}",
-        "Type": "A",
-        "TTL": 1,
-        "ResourceRecords": [{"Value": "${IP}"]
+  --hosted-zone-id "$ZONEID" \
+  --change-batch "{
+    \"Comment\": \"UPSERT A record for ${instance}.${DOMAIN_NAME}\",
+    \"Changes\": [{
+      \"Action\": \"UPSERT\",
+      \"ResourceRecordSet\": {
+        \"Name\": \"${instance}.${DOMAIN_NAME}\",
+        \"Type\": \"A\",
+        \"TTL\": 1,
+        \"ResourceRecords\": [{
+          \"Value\": \"${IP}\"
+        }]
       }
     }]
-  }'
+  }"
 
  echo "$instance ip address is $IP"
 
