@@ -30,7 +30,7 @@ do
    --instance-ids $INSTANCE_ID \
    --query 'Reservations[0].Instances[0].PublicIpAddress' \
    --output text)
-  
+  fi
   aws route53 change-resource-record-sets \
   --hosted-zone-id $ZONEID \
   --change-batch '{
