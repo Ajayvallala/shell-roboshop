@@ -10,8 +10,7 @@ SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 LOG_FILE="$LOG_FOLDER$SCRIPT_NAME.log"
 USER=$(id -u)
 
-mkdir -p $LOG_FOLDER
-VALIDATE $? "Creating LOG Folder"
+mkdir -p $LOG_FOLDER 
 
 echo "Script execution started at $(date)" | tee -a $LOG_FILE
 
