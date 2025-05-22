@@ -11,10 +11,10 @@ echo "Script execution started at $DATE"
 
 if [ $USER -ne 0 ]
 then
- echo "$Y Please switch to root user $N"
+ echo -e "$Y Please switch to root user $N"
  exit 1
 else
- echo "$G you are running the script with root $N"
+ echo -e "$G you are running the script with root $N"
 fi
 
 VALIDATE(){
