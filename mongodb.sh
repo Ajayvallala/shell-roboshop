@@ -24,6 +24,7 @@ VALIDATE(){
      exit 1
     else
      echo "$2 is $G SUCCESS $N"
+    fi
 }
 
 cp mongo.repo /etc/yum.d.repos/mongodb.repo
