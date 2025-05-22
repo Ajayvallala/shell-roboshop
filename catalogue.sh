@@ -9,6 +9,7 @@ LOG_FOLDER="/var/log/shell_script/"
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 LOG_FILE="$LOG_FOLDER$SCRIPT_NAME.log"
 USER=$(id -u)
+SCRIPT_DIR="$PWD"
 
 mkdir -p $LOG_FOLDER 
 
@@ -55,6 +56,7 @@ fi
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>$LOG_FILE
 VALIDATE $? "Downloading Dependencies"
 
+rm -rf /app/*
 cd /app
 unzip /tmp/catalogue.zip &>>$LOG_FILE
 VALIDATE $? "Starting Nodejs"
@@ -62,7 +64,7 @@ VALIDATE $? "Starting Nodejs"
 npm install &>>$LOG_FILE
 VALIDATE $? "Installing Dependencies"
 
-cp catalogue.service /etc/systemd/system/catalogue.service
+cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
 VALIDATE $? "Catalogue service"
 
 systemctl daemon-reload &>>$LOG_FILE
