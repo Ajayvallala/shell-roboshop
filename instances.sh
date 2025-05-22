@@ -3,7 +3,7 @@
 AMIID="ami-09c813fb71547fc4f"
 SG_ID="sg-007aa1e4ce81005d7"
 INSTANCE_TYPE="t2.micro"
-INSTANCES=("mongodb" "catalogue")
+INSTANCES=("mongodb")
 SUBNET_ID="subnet-07d9ef0ea659b9697"
 
 for instance in ${INSTANCES[@]}
@@ -17,7 +17,7 @@ do
     --query "Reservations[0].Instances[0].InstanceId" \
     --output text)
 
-    if [ $instance != frontend ]
+    if [ $instance != "frontend" ]
     then 
      IP=$(aws ec2 describe-instances \
        --instance-ids $INSTANCE_ID \
@@ -29,5 +29,5 @@ do
        --query "Reservations[0].Instances[0].PublicIpAddress" \
        --output text)
     fi
-    echo "$instance = $IP"
+    echo "$instance IP ADDRESS IS: $IP"
 done
