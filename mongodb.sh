@@ -5,37 +5,36 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 USER=$(id -u)
-DATE=$(date)
 LOG_FOLDER="/var/log/shell_script/"
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 LOG_FILE="$LOG_FOLDER$SCRIPT_NAME.log"
 
-echo -e "$Y Script execution started at $DATE $N"
+echo "Script execution started at $(date)" | tee -a $LOG_FILE
 
 mkdir -p $LOG_FOLDER
 
 if [ $USER -ne 0 ]
 then
- echo -e "$Y Please switch to root user $N"
+ echo -e "$Y Please switch to root user $N" | tee -a $LOG_FILE
  exit 1
 else
- echo -e "$G you are running the script with root $N"
+ echo -e "$G you are running the script with root $N" | tee -a $LOG_FILE
 fi
 
 VALIDATE(){
     if [ $1 -ne 0 ]
     then
-     echo -e "$2 is $R FAILURE $N"
+     echo -e "$2 is $R FAILURE $N" | tee -a $LOG_FILE
      exit 1
     else
-     echo -e "$2 is $G SUCCESS $N"
+     echo -e "$2 is $G SUCCESS $N" | tee -a $LOG_FILE
     fi
 }
 
 cp mongo.repo /etc/yum.repos.d/mongodb.repo
 VALIDATE $? "Copying repo"
 
-dnf install mongodb-org -y &>>$LOG_FILE
+dnf install mongodb-org12 -y &>>$LOG_FILE
 VALIDATE $? "Installation mongodb"
 
 systemctl enable mongod
