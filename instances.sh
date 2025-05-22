@@ -14,7 +14,7 @@ do
     --security-group-ids $SG_GROUP \
     --subnet-id $SUBNET_ID \
     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]" \
-    --query "Reservations[0].Instances[0].InstanceId" \
+    --query "Instances[0].InstanceId" \
     --output text)
 
     if [ $instance != "frontend" ]
@@ -29,5 +29,5 @@ do
        --query "Reservations[0].Instances[0].PublicIpAddress" \
        --output text)
     fi
-    echo "$instance IP ADDRESS IS: $IP"
+    echo "$instance ip address is $IP"
 done
