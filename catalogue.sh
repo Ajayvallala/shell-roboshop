@@ -70,13 +70,13 @@ VALIDATE $? "Catalogue service"
 systemctl daemon-reload &>>$LOG_FILE
 VALIDATE $? "Daemon-reload"
 
-systemctl enable catalogue
+systemctl enable catalogue &>>$LOG_FILE
 VALIDATE $? "Enable Catalogue"
 
 systemctl start catalogue
 VALIDATE $? "Starting Catalogue"
 
-cp mongo.repo /etc/yum.repos.d/mongodb.repo
+cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongodb.repo
 
 dnf install mongodb-mongosh -y &>>$LOG_FILE
 VALIDATE $? "Installing Mongodb client"
