@@ -13,6 +13,7 @@ do
     --instance-type $INSTANCE_TYPE \
     --security-group-ids $SG_GROUP \
     --subnet-id $SUBNET_ID \
+    --associate-public-ip-address \
     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]" \
     --query "Instances[0].InstanceId" \
     --output text)
