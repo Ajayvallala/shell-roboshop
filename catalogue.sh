@@ -8,6 +8,7 @@ N="\e[0"
 LOG_FOLDER="/var/log/shell_script/"
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 LOG_FILE="$LOG_FOLDER$SCRIPT_NAME.log"
+mkdir -p $LOG_FOLDER
 USER=$(id -u)
 
 if [ $USER -ne 0 ]
@@ -15,7 +16,7 @@ then
  echo -e "$R Please swith to root user $N" | tee -a $LOG_FILE
  exit 1
 else
- echo "you are running with root user" | tee -a $LOG_FILE
+ echo -e " $G you are running with root user $N" | tee -a $LOG_FILE
 fi
 
 VALIDATE(){
