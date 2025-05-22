@@ -6,7 +6,7 @@ INSTANCE_TYPE="t2.micro"
 INSTANCES=("mongodb" "catalogur" "frontend")
 
 
-for instances ${INSTANCES[@]}
+for instances in ${INSTANCES[@]}
 do 
     aws ec2 run-instances \
     --image-id $AMIID \
