@@ -41,12 +41,6 @@ VALIDATE $? "Enable Nodejs:20"
 dnf install nodejs -y &>>$LOG_FILE
 VALIDATE $? "Installing Nodejs"
 
-systemctl enable nodejs &>>$LOG_FILE
-VALIDATE $? "Enable Nodejs sevice"
-
-systemctl start nodjs &>>$LOG_FILE
-VALIDATE $? "Starting Nodejs"
-
 mkdir -p /app &>>$LOG_FILE
 
 roboshop id &>>$LOG_FILE
