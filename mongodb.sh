@@ -20,14 +20,14 @@ fi
 VALIDATE(){
     if [ $1 -ne 0 ]
     then
-     echo "$2 is $R FAILURE $N"
+     echo -e "$2 is $R FAILURE $N"
      exit 1
     else
-     echo "$2 is $G SUCCESS $N"
+     echo -e "$2 is $G SUCCESS $N"
     fi
 }
 
-cp mongo.repo /etc/yum.d.repos/mongodb.repo
+cp mongo.repo /etc/yum.repos.d/mongodb.repo
 VALIDATE $? "Copying repo"
 
 dnf install mongodb-org -y
