@@ -4,7 +4,7 @@ AMIID="ami-09c813fb71547fc4f"
 SG_ID="sg-007aa1e4ce81005d7"
 INSTANCE_TYPE="t2.micro"
 SUBNET_ID="subnet-07d9ef0ea659b9697"
-INSTANCES_LIST=("mongodb" "catalogue" "frontend")
+INSTANCES_LIST=("mongodb")
 ZONEID="Z0638351DE255MIV6AWU"
 DOMAIN_NAME="vallalas.store"
 
@@ -42,7 +42,7 @@ do
         "Name": "$instance.$DOMAIN_NAME",
         "Type": "A",
         "TTL": 1,
-        "ResourceRecords": [{"Value": "$IP"}]
+        "ResourceRecords": [{"Value": $IP}]
       }
     }]
   }'
