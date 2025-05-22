@@ -45,6 +45,6 @@ do
     }]
   }'
 
-echo "$instance ip address is $IP"
+ echo "$instance ip address is $IP"
 
 done
