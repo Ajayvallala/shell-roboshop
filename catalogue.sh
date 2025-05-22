@@ -20,7 +20,7 @@ then
  echo -e "$R Please swith to root user $N" | tee -a $LOG_FILE
  exit 1
 else
- echo -e " $G you are running with root user $N" | tee -a $LOG_FILE
+ echo -e "$G You are running with root user $N" | tee -a $LOG_FILE
 fi
 
 VALIDATE(){
