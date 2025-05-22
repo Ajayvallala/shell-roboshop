@@ -44,7 +44,7 @@ VALIDATE $? "Installing Nodejs"
 
 mkdir -p /app &>>$LOG_FILE
 
-roboshop id &>>$LOG_FILE
+id roboshop &>>$LOG_FILE
 if [ $? -ne 0 ]
 then
  useradd --system --home /app --shell /sbin/nologin --comment "Roboshop user" roboshop &>>$LOG_FILE
