@@ -11,14 +11,15 @@ DOMAIN_NAME="vallalas.store"
 for instance in ${INSTANCES_LIST[@]}
 do
    INSTANCE_ID=$(aws ec2 run-instances \
-   --image-id $AMIID \           # Replace with your AMI ID
-   --instance-type $INSTANCE_TYPE \                   # Replace with desired instance type
-   --security-group-ids $SG_ID \  # Replace with your security group ID
-   --subnet-id $SUBNET_ID \                # Optional: specify subnet ID
-   --associate-public-ip-address \
-   --query 'Instances[0].InstanceId' \
-   --output text)
-  
+    --image-id $AMIID \
+    --instance-type $INSTANCE_TYPE \
+    --security-group-ids $SG_ID \
+    --subnet-id $SUBNET_ID \
+    --associate-public-ip-address \
+    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]" \
+    --query "Instances[0].InstanceId" \
+    --output text)
+    
   if [ $instance != "frontend" ]
   then 
     IP=$(aws ec2 describe-instances \
