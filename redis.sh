@@ -20,10 +20,10 @@ USER=$(id -u)
 
 if [ $USER -ne 0 ]
 then
- echo -e "$$Y Please run with root user$N" | tee -a $LOG_FILE
+ echo -e "$Y Please run with root user$N" | tee -a $LOG_FILE
  exit 1
 else
- echo -e "$$B you are running with root user$N" | tee -a $LOG_FILE
+ echo -e "$B you are running with root user$N" | tee -a $LOG_FILE
 fi
 
 VALIDATE(){
