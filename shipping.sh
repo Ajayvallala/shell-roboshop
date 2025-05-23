@@ -79,9 +79,9 @@ VALIDATE $? "Installing Mysql client"
 
 mysql -h mysql.vallalas.store -uroot -pRoboShop@1 < /app/db/schema.sql &>>$LOG_FILE
 
-mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pRoboShop@1 < /app/db/app-user.sql  &>>$LOG_FILE
+mysql -h mysql.vallalas.store -uroot -pRoboShop@1 < /app/db/app-user.sql  &>>$LOG_FILE
 
-mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pRoboShop@1 < /app/db/master-data.sql &>>$LOG_FILE
+mysql -h mysql.vallalas.store -uroot -pRoboShop@1 < /app/db/master-data.sql &>>$LOG_FILE
 VALIDATE $? "Data loaded in DB"
 
 systemctl restart shipping &>>$LOG_FILE
