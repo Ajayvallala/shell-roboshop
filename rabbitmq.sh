@@ -5,6 +5,7 @@ START_TIME=$(date +%s)
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
+B="\e[34m"
 N="\e[0m"
 
 LOG_FOLDER="/var/log/shell_script/"
@@ -47,7 +48,7 @@ VALIDATE $? "Enable Rabbitmq"
 systemctl start rabbitmq-server &>>$LOG_FILE
 VALIDATE $? "Starting Rabbitmq"
 
-rabbitmqctl list_users | grep roboshop
+rabbitmqctl list_users | grep roboshop &>>$LOG_FILE
 
 if [ $? -ne 0 ]
 then
@@ -59,9 +60,6 @@ then
 else
  echo -e "$B User already created skipping$N"
 fi
-
-systemctl restart shipping &>>$LOG_FILE
-VALIDATE $? "Shipping service"
 
 END_TIME=$(date +%s)
 
