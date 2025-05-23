@@ -29,10 +29,10 @@ fi
 VALIDATE(){
     if [ $1 -ne 0 ]
     then 
-     echo "$2 is $R Failure $N" | tee -a $LOG_FILE
+     echo -e "$2 is $R Failure $N" | tee -a $LOG_FILE
      exit 1
     else
-     echo "$2 is $G Success $N" | tee -a $LOG_FILE
+     echo -e "$2 is $G Success $N" | tee -a $LOG_FILE
     fi
 }
 
@@ -48,7 +48,7 @@ VALIDATE $? "Installing redis"
 sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis/redis.conf
 VALIDATE $? "Opeaning all the traffic"
 
-sed -i 's/protected-mode no/protected-mode yes' /etc/redis/redis.conf
+sed -i 's/protected-mode yes/protected-mode no' /etc/redis/redis.conf
 VALIDATE $? "Disabling protected-mode"
 
 systemctl enable redis &>>$LOG_FILE
