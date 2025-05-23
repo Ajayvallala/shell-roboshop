@@ -60,9 +60,11 @@ VALIDATE $? "Removing default html content"
 curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip &>>$LOG_FILE
 VALIDATE $? "Downloading source code"
 
-cd /usr/share/nginx/html
+cd /usr/share/nginx/html/
+VALIDATE $? "Moving to default html directory"
 
-unzip /tmp/frontend.zip /usr/share/nginx/html/
+unzip /tmp/frontend.zip
+VALIDATE $? "Unzipping source code"
 
 cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf &>>$LOG_FILE
 VALIDATE $? "Copying nginx.conf file"
