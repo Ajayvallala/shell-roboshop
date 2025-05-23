@@ -36,7 +36,7 @@ VALIDATE(){
 }
 
 dnf install mvn -y &>>$LOG_FILE
-VALIDATE $1 "MVN Installation"
+VALIDATE $? "MVN Installation"
 
 mkdir -p /app &>>$LOG_FILE
 
@@ -57,12 +57,12 @@ cd /app
 unzip /tmp/shipping.zip &>>$LOG_FILE
 
 mvn clean package &>>$LOG_FILE
-VALIDATE $1 "Packaging source code"
+VALIDATE $? "Packaging source code"
 
 mv target/shipping-1.0.jar shipping.jar 
 
 cp $PWD/shipping.service /etc/systemd/system/shipping.service
-VALIDATE $1 "shipping service creation"
+VALIDATE $? "shipping service creation"
 
 systemctl daemon-reload &>>$LOG_FILE
 VALIDATE $? "Daemon-reload"
@@ -74,17 +74,17 @@ systemctl start shipping
 VALIDATE $? "Starting shipping service"
 
 dnf install mysql -y &>>$LOG_FILE
-VALIDATE $1 "Installing Mysql client"
+VALIDATE $? "Installing Mysql client"
 
 mysql -h mysql.vallalas.store -uroot -pRoboShop@1 < /app/db/schema.sql &>>$LOG_FILE
 
 mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pRoboShop@1 < /app/db/app-user.sql  &>>$LOG_FILE
 
 mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pRoboShop@1 < /app/db/master-data.sql &>>$LOG_FILE
-VALIDATE $1 "Data loaded in DB"
+VALIDATE $? "Data loaded in DB"
 
 systemctl restart shipping &>>$LOG_FILE
-VALIDATE $1 "Shipping service"
+VALIDATE $? "Shipping service"
 
 END_TIME=$(date +%s)
 
