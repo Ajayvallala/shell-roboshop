@@ -5,11 +5,12 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[37m"
 
-LOG_FOLDER="/var/log/shell_script/"
+LOG_FOLDER="/var/log/shell_script"
 LOGFILE_NAME=$(echo $0 | cut -d "." -f1)
-LOG_FILE="$LOG_FOLDER$LOGFILE_NAME.log"
+LOG_FILE="$LOG_FOLDER/$LOGFILE_NAME.log"
   
-mkdir $LOG_FOLDER &>>$LOG_FILE
+mkdir -p $LOG_FOLDER &>>$LOG_FILE
+
 if [ $? -ne 0 ]
 then
  echo -e "$R Permission denied to create log folder switch to root $N"
