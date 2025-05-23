@@ -63,7 +63,7 @@ VALIDATE $? "Downloading source code"
 cd /usr/share/nginx/html/
 VALIDATE $? "Moving to default html directory"
 
-unzip /tmp/frontend.zip
+unzip /tmp/frontend.zip &>>$LOG_FILE
 VALIDATE $? "Unzipping source code"
 
 cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf &>>$LOG_FILE
