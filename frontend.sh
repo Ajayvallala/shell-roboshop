@@ -9,7 +9,7 @@ LOG_FOLDER="/var/log/shell_script"
 LOGFILE_NAME=$(echo $0 | cut -d "." -f1)
 LOG_FILE="$LOG_FOLDER/$LOGFILE_NAME.log"
   
-mkdir -p $LOG_FOLDER &>>$LOG_FILE
+mkdir -p $LOG_FOLDER 
 
 if [ $? -ne 0 ]
 then
