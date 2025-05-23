@@ -47,11 +47,18 @@ VALIDATE $? "Enable Rabbitmq"
 systemctl start rabbitmq-server &>>$LOG_FILE
 VALIDATE $? "Starting Rabbitmq"
 
-rabbitmqctl add_user roboshop roboshop123 &>>$LOG_FILE
-VALIDATE $? "Creating Rabbitmq user"
+rabbitmqctl list_users | grep roboshop
 
-rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>$LOG_FILE
-VALIDATE $? "Setting Permissions to Rabbitmq user"
+if [ $? -ne 0 ]
+then
+  rabbitmqctl add_user roboshop roboshop123 &>>$LOG_FILE
+  VALIDATE $? "Creating Rabbitmq user"
+
+  rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>$LOG_FILE
+  VALIDATE $? "Setting Permissions to Rabbitmq user"
+else
+ echo -e "$B User already created skipping$N"
+fi
 
 systemctl restart shipping &>>$LOG_FILE
 VALIDATE $? "Shipping service"
