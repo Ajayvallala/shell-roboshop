@@ -36,25 +36,25 @@ VALIDATE(){
 }
 
 cp $PWD/rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo
-VALIDATE $1 "Creating Rabbitmq repo"
+VALIDATE $? "Creating Rabbitmq repo"
 
-dnf install rabbitmq-server -y
-VALIDATE $1 "Installing Rabbitmq"
+dnf install rabbitmq-server -y &>>$LOG_FILE
+VALIDATE $? "Installing Rabbitmq"
 
-systemctl enable rabbitmq-server
-VALIDATE $1 "Enable Rabbitmq"
+systemctl enable rabbitmq-server &>>$LOG_FILE
+VALIDATE $? "Enable Rabbitmq"
 
-systemctl start rabbitmq-server
-VALIDATE $1 "Starting Rabbitmq"
+systemctl start rabbitmq-server &>>$LOG_FILE
+VALIDATE $? "Starting Rabbitmq"
 
-rabbitmqctl add_user roboshop roboshop123
-VALIDATE $1 "Creating Rabbitmq user"
+rabbitmqctl add_user roboshop roboshop123 &>>$LOG_FILE
+VALIDATE $? "Creating Rabbitmq user"
 
-rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
-VALIDATE $1 "Setting Permissions to Rabbitmq user"
+rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>$LOG_FILE
+VALIDATE $? "Setting Permissions to Rabbitmq user"
 
 systemctl restart shipping &>>$LOG_FILE
-VALIDATE $1 "Shipping service"
+VALIDATE $? "Shipping service"
 
 END_TIME=$(date +%s)
 
