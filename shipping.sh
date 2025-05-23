@@ -59,7 +59,7 @@ unzip /tmp/shipping.zip &>>$LOG_FILE
 mvn clean package &>>$LOG_FILE
 VALIDATE $? "Packaging source code"
 
-mv target/shipping-1.0.jar.original shipping.jar 
+mv target/shipping-1.0.jar shipping.jar 
 VALIDATE $? "Moving jar file"
 
 cp $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service
