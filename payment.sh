@@ -57,7 +57,7 @@ rm -rf /app/*
 cd /app
 unzip /tmp/payment.zip &>>$LOG_FILE
 
-pip3 install -r requirments.txt &>>$LOG_FILE
+pip3 install -r requirements.txt &>>$LOG_FILE
 VALIDATE $? "Installing Dependencies"
 
 cp $SCRIPT_DIR/payment.service /etc/systemd/system/payment.service
