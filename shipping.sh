@@ -35,7 +35,7 @@ VALIDATE(){
     fi
 }
 
-dnf install mvn -y &>>$LOG_FILE
+dnf install maven -y &>>$LOG_FILE
 VALIDATE $? "MVN Installation"
 
 mkdir -p /app &>>$LOG_FILE
