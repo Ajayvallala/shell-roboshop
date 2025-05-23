@@ -62,7 +62,7 @@ VALIDATE $? "Packaging source code"
 mv target/shipping-1.0.jar.original shipping.jar 
 VALIDATE $? "Moving jar file"
 
-cp $PWD/shipping.service /etc/systemd/system/shipping.service
+cp $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service
 VALIDATE $? "shipping service creation"
 
 systemctl daemon-reload &>>$LOG_FILE
