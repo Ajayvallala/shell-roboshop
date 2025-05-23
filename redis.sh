@@ -20,10 +20,10 @@ USER=$(id -u)
 
 if [ $USER -ne 0 ]
 then
- echo -e "$ $Y Please run with root user $N" | tee -a $LOG_FILE
+ echo -e "$$Y Please run with root user$N" | tee -a $LOG_FILE
  exit 1
 else
- echo -e "$ $B you are running with root user $N" | tee -a $LOG_FILE
+ echo -e "$$B you are running with root user$N" | tee -a $LOG_FILE
 fi
 
 VALIDATE(){
@@ -59,6 +59,6 @@ VALIDATE $? "Starting redis"
 
 END_TIME=$(date +%s)
 
-TOTAL_TIME=$(($START_TIME - $END_TIME))
+TOTAL_TIME=$(($END_TIME - $START_TIME))
 
 echo -e "Script execution completed successfully, $B time taken $TOTAL_TIME seconds" | tee -a $LOG_FILE
