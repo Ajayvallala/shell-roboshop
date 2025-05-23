@@ -1,5 +1,7 @@
 #!/bin/bash
 
+START_TIME=$(date +%s)
+
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
@@ -53,35 +55,30 @@ else
  echo "User already created skipping" | tee -a $LOG_FILE
 fi
 
-curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>$LOG_FILE
+curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip &>>$LOG_FILE
 VALIDATE $? "Downloading Dependencies"
 
 rm -rf /app/*
 cd /app
-unzip /tmp/catalogue.zip &>>$LOG_FILE
+unzip /tmp/user.zip &>>$LOG_FILE
 
 npm install &>>$LOG_FILE
 VALIDATE $? "Installing Dependencies"
 
-cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
-VALIDATE $? "Catalogue service"
+cp $SCRIPT_DIR/user.service /etc/systemd/system/user.service
+VALIDATE $? "user service"
 
 systemctl daemon-reload &>>$LOG_FILE
 VALIDATE $? "Daemon-reload"
 
-systemctl enable catalogue &>>$LOG_FILE
-VALIDATE $? "Enable Catalogue"
+systemctl enable user &>>$LOG_FILE
+VALIDATE $? "Enable user service"
 
-systemctl start catalogue
-VALIDATE $? "Starting Catalogue"
+systemctl start user
+VALIDATE $? "Starting user service"
 
-cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongodb.repo
+END_TIME=$(date +%s)
 
-dnf install mongodb-mongosh -y &>>$LOG_FILE
-VALIDATE $? "Installing Mongodb client"
+TOTAL_TIME=$(($END_TIME - $START_TIME))
 
-mongosh --host mongodb.vallalas.store < /app/db/master-data.js &>>$LOG_FILE
-VALIDATE $? "Loding data into DB"
-
-
-
+echo -e "Script execution completed successfully, $B time taken $TOTAL_TIME seconds" | tee -a $LOG_FILE
